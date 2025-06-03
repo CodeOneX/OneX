@@ -40,17 +40,6 @@ struct HomeView: View {
         Expense(name: "电影", amount: 15.0, category: .entertainment)
     ]
 
-    @State private var animateGradient = false
-
-    private func randomGradient() -> RadialGradient {
-        let colors = [Color.purple, Color.orange, Color.yellow, Color.green, Color.blue, Color.pink].shuffled()
-        return RadialGradient(
-            gradient: Gradient(colors: colors + [colors.first!]),
-            center: UnitPoint(x: Double.random(in: 0...1), y: Double.random(in: 0...1)),
-            startRadius: 100,
-            endRadius: 500
-        )
-    }
 
     var body: some View {
         NavigationStack {
@@ -71,36 +60,7 @@ struct HomeView: View {
                     }
                 }
 
-                ZStack {
-                    RoundedRectangle(cornerRadius: 25)
-                        .fill(randomGradient())
-                        .frame(height: 220)
-                        .onAppear {
-                            withAnimation(Animation.linear(duration: 6).repeatForever(autoreverses: true)) {
-                                animateGradient.toggle()
-                            }
-                        }
-
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("¥ \(String(format: "%.2f", balance))")
-                            .font(.title2)
-                            .bold()
-                            .foregroundColor(.white)
-
-                        Chart(dailyBalances) { item in
-                            LineMark(
-                                x: .value("Day", item.day),
-                                y: .value("Amount", item.amount)
-                            )
-                            .interpolationMethod(.catmullRom)
-                            .foregroundStyle(.white)
-                        }
-                        .chartYAxis(.hidden)
-                        .chartXAxis(.hidden)
-                        .frame(height: 120)
-                    }
-                    .padding()
-                }
+                CardView(balance: balance, dailyBalances: dailyBalances)
 
                 Text("支出记录")
                     .font(.headline)
