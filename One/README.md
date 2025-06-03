@@ -1,4 +1,4 @@
-# One music App
+# iOS 记账 App
 
-### 一、One Music
+此项目展示了一个简易的记账应用，界面设计借鉴了苹果钱包中 Apple Card/Apple Savings 的风格。主页包含卡片式的余额展示以及支出列表，便于用户直观查看每日消费情况。
 
